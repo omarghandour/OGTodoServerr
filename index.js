@@ -4,8 +4,8 @@ const { v4: uuidv4 } = require("uuid");
 const cors = require("cors");
 const app = express();
 const pool = require("./db");
-const bcrypt = require("bcrypt");
-// const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const functions = require("firebase-functions");
 //get todos
@@ -36,19 +36,19 @@ app.get("/todos/:userEmail/today", async (req, res) => {
     console.log(err);
   }
 });
-app.get("/todos/tryhard/:userEmail", async (req, res) => {
-  const { userEmail } = req.params;
-  try {
-    const todos = await pool.query(
-      "SELECT * FROM tryhard WHERE user_email = $1",
-      [userEmail]
-    );
+// app.get("/todos/tryhard/:userEmail", async (req, res) => {
+//   const { userEmail } = req.params;
+//   try {
+//     const todos = await pool.query(
+//       "SELECT * FROM tryhard WHERE user_email = $1",
+//       [userEmail]
+//     );
 
-    res.json(todos.rows);
-  } catch (err) {
-    console.log(error);
-  }
-});
+//     res.json(todos.rows);
+//   } catch (err) {
+//     console.log(error);
+//   }
+// });
 // Create a new todo
 app.post("/todos/tryhard", async (req, res) => {
   const { user_email, title, progress, date } = req.body;
@@ -114,6 +114,7 @@ app.delete("/todos/:id", async (req, res) => {
 // signup
 app.post("/signup", async (req, res) => {
   const { email, password } = req.body;
+
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(password, salt);
   try {
