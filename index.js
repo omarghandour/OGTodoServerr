@@ -9,7 +9,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const functions = require("firebase-functions");
 //get todos
-app.use(cors({ origin: true }));
+app.use(cors({ origin: false }));
 app.use(express.json());
 app.get("/todos/:userEmail", async (req, res) => {
   const { userEmail } = req.params;
